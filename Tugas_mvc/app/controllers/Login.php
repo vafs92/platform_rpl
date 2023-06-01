@@ -22,7 +22,10 @@ class Login extends Controller {
             exit;
         } else {
             // Login gagal, tampilkan pesan error atau sesuai kebutuhan
-            echo 'Username atau password salah.';
+            echo '<script>';
+            echo 'alert("Username atau password salah.");';
+            echo 'window.location.href = "' . BASEURL . '";';
+            echo '</script>';
         }
     }
 }
