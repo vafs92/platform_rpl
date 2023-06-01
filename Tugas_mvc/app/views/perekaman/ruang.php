@@ -1,3 +1,10 @@
+<style>
+        body {
+            background: url('<?= BASEURL; ?> /img/Home.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+</style>
+
 <div class="container mt-3">
 
 	<div class="row">
