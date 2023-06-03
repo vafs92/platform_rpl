@@ -26,7 +26,7 @@
                             <td><?= $item['jamP_barang'] ?></td>
                             <td>
                                 <select class="form-control" id="status" name="status">
-                                    <option value="DIKIRIM">DIKIRM</option>
+                                    <option value="DIKIRIM">DIKIRIM</option>
                                     <option value="DITERUSKAN">DITERUSKAN</option>
                                     <option value="TOLAK">TOLAK</option>
                                 </select>
