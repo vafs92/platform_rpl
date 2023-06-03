@@ -1,7 +1,7 @@
 <div class="container">
-    <h3>Data Pinjam barang</h3>
+    <h3>Data Pinjam Barang</h3>
 
-    <table>
+    <table class = "table table-striped table-light">
         <thead>
             <tr>
                 <th>Kode Pinjam</th>
@@ -26,7 +26,7 @@
                             <td><?= $item['jamP_barang'] ?></td>
                             <td>
                                 <select class="form-control" id="status" name="status">
-                                    <option value="DIKIRIM">DIKIRIM</option>
+                                    <option value="DIKIRIM">DIKIRM</option>
                                     <option value="DITERUSKAN">DITERUSKAN</option>
                                     <option value="TOLAK">TOLAK</option>
                                 </select>
