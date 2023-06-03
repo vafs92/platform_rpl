@@ -3,8 +3,14 @@
             background: url('<?= BASEURL; ?> /img/Home.jpg') no-repeat center center fixed;
             background-size: cover;
         }
-</style>
+		h3{
 
+		}
+		table{
+			text-align: center;
+		}
+        
+</style>
 <div class="container mt-3">
 
 	<div class="row">
@@ -14,15 +20,7 @@
 	</div>
 
 	<div class="row mb-3">
-		<div class="col-lg-6">
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary tombolTambahDataR" data-bs-toggle="modal" data-bs-target="#formModal">
-				TAMBAH
-			</button>
-		</div>
-	</div>
 
-	<div class="row mb-3">
 		<div class="col-lg-6">
 			<form action="<?= BASEURL; ?>/perekaman/cariR" method="POST">
 				<div class="input-group">
@@ -33,24 +31,39 @@
 				</div>
 			</form>
 		</div>
+		<div class="col-lg-6">
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary tombolTambahDataB" data-bs-toggle="modal" data-bs-target="#formModal">
+				TAMBAH
+			</button>
+		</div>
+		
 
 	</div>
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-lg-12">
 
-			<h3>Daftar Ruang</h3>
+			<h3><b>Daftar Ruang : </b></h3>
 
-			<ul class="list-group">
-				<?php foreach ($data['ruang'] as $ruang) : ?>
-					<li class="list-group-item">
-						<?= $ruang['kodeR'] ?>
-						<?= $ruang['namaR'] ?>
-						<a href="<?= BASEURL; ?>/perekaman/editR/<?= $ruang['kodeR']; ?>" class="badge badge-warning float-end ms-1 tampilModalUbahR" style="color:black" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $ruang['kodeR']; ?>">edit</a>
-						<a href="<?= BASEURL; ?>/perekaman/hapusR/<?= $ruang['kodeR']; ?>" class="badge badge-danger float-end ms-1" style="color:black" onclick="return confirm('yakin?')">hapus</a>
-
-					</li>
-				<?php endforeach; ?>
-			</ul>
+			<table class = "table table-striped table-light">
+                    <thead>
+                        <tr>
+                            <th>Kode Ruangan</th>
+                            <th>Nama Ruangan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>	
+                    <tbody>
+                        <?php foreach ($data['ruang'] as $ruang) : ?>
+                            <tr>
+                                <td><?= $ruang['kodeR'] ?></td>
+                                <td><?= $ruang['namaR'] ?></td>
+                                <td><a href="<?= BASEURL; ?>/perekaman/editR/<?= $ruang['kodeR']; ?>" class="badge badge-warning float-end ms-1 tampilModalUbahR" style="color:black" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $ruang['kodeR']; ?>">edit</a>
+						        <a href="<?= BASEURL; ?>/perekaman/hapusR/<?= $ruang['kodeR']; ?>" class="badge badge-danger float-end ms-1" style="color:black" onclick="return confirm('yakin?')">hapus</a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
 		</div>
 	</div>
 
@@ -79,7 +92,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Tambah Data</button>
+				<button type="submit" class="btn btn-success">Tambah Data</button>
 				</form>
 			</div>
 		</div>
