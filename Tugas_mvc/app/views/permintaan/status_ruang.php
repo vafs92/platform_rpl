@@ -1,7 +1,8 @@
+
 <div class="container">
     <h3>Data Pinjam Ruang</h3>
 
-    <table>
+    <table class = "table table-striped table-light">
         <thead>
             <tr>
                 <th>Kode Pinjam</th>
