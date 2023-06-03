@@ -6,22 +6,36 @@ class Permintaan extends Controller
     {
         $data['judul'] = 'Status';
         $data['selectedOption'] = isset($_POST['option']) ? $_POST['option'] : '';
-
-        $pinjamBarangModel = $this->model('Model_StatusPinjam');
-        $pinjamRuangModel = $this->model('Model_StatusPinjam');
+        $this->view('templates/header', $data);
 
         if ($data['selectedOption'] == 'barang') {
-            $data['items'] = $pinjamBarangModel->getAllPinjamB();
+            $data['items'] = $this->model('Model_StatusPinjam')->getAllPinjamB();
+            $this->view('permintaan/status', $data);
+
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+                $data['items_barang'] = $this->model('Model_StatusPinjam')->getAllPinjamBbyId($id);
+                $this->view('permintaan/status_barang', $data);
+            }
+            
         } elseif ($data['selectedOption'] == 'ruang') {
-            $data['items'] = $pinjamRuangModel->getAllPinjamR();
+            $data['items'] = $this->model('Model_StatusPinjam')->getAllPinjamR();
+            $this->view('permintaan/status', $data);
+
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+                $data['items_ruang'] = $this->model('Model_StatusPinjam')->getAllPinjamRbyId($id);
+                $this->view('permintaan/status_ruang', $data);
+            }
+           
         } else {
-            $data['items'] = [];
+            $data['items_barang'] = [];
+            $data['items_ruang'] = [];
             $data['kodeLabel'] = '';
             $data['namaLabel'] = '';
+            $this->view('permintaan/status', $data);
         }
 
-        $this->view('templates/header', $data);
-        $this->view('permintaan/status', $data);
         $this->view('templates/footer', $data);
     }
 
@@ -175,74 +189,47 @@ class Permintaan extends Controller
         $this->view('templates/footer', $data);
     }
 
-    // public function updateStatusRuang()
-    // {
-    //     // var_dump($_POST);
-
-    //     if ($this->model('Model_StatusPinjam')->ubahStatusR($_POST) > 0) {
-    //         // Flasher::setFlash('berhasil', 'diubah', 'success');
-    //         header('Location: http://localhost/Tugas_mvc/public/permintaan/verif');
-    //         exit;
-    //     } else {
-    //         // Flasher::setFlash('gagal', 'diubah', 'danger');
-    //         header('Location: http://localhost/Tugas_mvc/public/permintaan/verif');
-    //         exit;
-    //     }
-    // }
-
-
-
-
-
-
-
-
-
-
-
-    // public function verif()
-    // {
-    //     $data['judul'] = 'Verifikasi';
-    //     $data['selectedOption'] = isset($_POST['option']) ? $_POST['option'] : '';
-
-    //     $pinjamBarangModel = $this->model('Model_StatusPinjam');
-    //     $pinjamRuangModel = $this->model('Model_StatusPinjam');
-
-    //     if ($data['selectedOption'] == 'barang') {
-    //         $data['items'] = $pinjamBarangModel->getAllPinjamBkirim();
-    //     } elseif ($data['selectedOption'] == 'ruang') {
-    //         $data['items'] = $pinjamRuangModel->getAllPinjamRkirim();
-    //     } else {
-    //         $data['items'] = [];
-    //         $data['kodeLabel'] = '';
-    //         $data['namaLabel'] = '';
-    //     }
-
-    //     $this->view('templates/header', $data);
-    //     $this->view('permintaan/verif', $data);
-    //     $this->view('templates/footer', $data);
-    // }
 
     public function konfirmasi()
     {
         $data['judul'] = 'Konfirmasi';
         $data['selectedOption'] = isset($_POST['option']) ? $_POST['option'] : '';
-
-        $pinjamBarangModel = $this->model('Model_StatusPinjam');
-        $pinjamRuangModel = $this->model('Model_StatusPinjam');
+        $this->view('templates/header', $data);
 
         if ($data['selectedOption'] == 'barang') {
-            $data['items'] = $pinjamBarangModel->getAllPinjamBterus();
+            $data['items'] = $this->model('Model_StatusPinjam')->getAllPinjamBterus();
+            $this->view('permintaan/konfirmasi', $data);
+
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+
+                if (isset($_POST['status']) && isset($_POST['kode'])) {
+                    $data['result'] = $this->model('Model_StatusPinjam')->ubahStatusB($_POST);
+                }
+                $data['items_barang'] = $this->model('Model_StatusPinjam')->getAllKonfirmB($id);
+                $this->view('permintaan/konfirmasi_barang', $data);
+            }
         } elseif ($data['selectedOption'] == 'ruang') {
-            $data['items'] = $pinjamRuangModel->getAllPinjamRterus();
+            $data['items'] = $this->model('Model_StatusPinjam')->getAllPinjamRterus();
+            $this->view('permintaan/konfirmasi', $data);
+
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+
+                if (isset($_POST['status']) && isset($_POST['kode'])) {
+                    $data['result'] = $this->model('Model_StatusPinjam')->ubahStatusR($_POST);
+                }
+                $data['items_ruang'] = $this->model('Model_StatusPinjam')->getAllKonfirmR($id);
+                $this->view('permintaan/konfirmasi_ruang', $data);
+            }
         } else {
-            $data['items'] = [];
+            $data['items_barang'] = [];
+            $data['items_ruang'] = [];
             $data['kodeLabel'] = '';
             $data['namaLabel'] = '';
+            $this->view('permintaan/konfirmasi', $data);
         }
 
-        $this->view('templates/header', $data);
-        $this->view('permintaan/konfirmasi', $data);
         $this->view('templates/footer', $data);
     }
 
