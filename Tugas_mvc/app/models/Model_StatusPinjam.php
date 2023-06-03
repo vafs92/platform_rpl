@@ -10,13 +10,27 @@ class Model_StatusPinjam
 
     public function getAllPinjamB()
     {
-        $this->db->query('SELECT * FROM `table_pinjambarang`');
+        $this->db->query('SELECT * FROM `table_pinjambarang` GROUP BY kodeP_barang');
         return $this->db->resultSet();
     }
 
     public function getAllPinjamR()
     {
-        $this->db->query('SELECT * FROM table_pinjamruang');
+        $this->db->query('SELECT * FROM table_pinjamruang GROUP BY kodeP_ruang');
+        return $this->db->resultSet();
+    }
+
+    public function getAllPinjamBbyId($kodeP)
+    {
+        $this->db->query('SELECT pb.kodeP_barang, pb.tanggalP_barang, pb.kodeB, b.namaB, pb.jamP_barang, pb.statusP_barang  FROM table_pinjambarang AS pb NATURAL JOIN table_barang as b WHERE kodeP_barang = :kodeP');
+        $this->db->bind(':kodeP', $kodeP);
+        return $this->db->resultSet();
+    }
+
+    public function getAllPinjamRbyId($kodeP)
+    {
+        $this->db->query('SELECT pb.kodeP_ruang, pb.tanggalP_ruang, pb.kodeR, b.namaR, pb.jamP_ruang, pb.statusP_ruang  FROM table_pinjamruang AS pb NATURAL JOIN table_ruang as b WHERE kodeP_ruang = :kodeP');
+        $this->db->bind(':kodeP', $kodeP);
         return $this->db->resultSet();
     }
 
@@ -118,13 +132,13 @@ class Model_StatusPinjam
 
     public function getAllPinjamBterus()
     {
-        $this->db->query('SELECT * FROM `table_pinjambarang` WHERE statusP_barang="DITERUSKAN" tanggalP_barang ASC');
+        $this->db->query('SELECT kodeP_barang, namaP, tanggalP_barang, statusP_barang FROM `table_pinjambarang` WHERE statusP_barang="DITERUSKAN" GROUP BY kodeP_barang ORDER BY tanggalP_barang ASC ');
         return $this->db->resultSet();
     }
 
     public function getAllPinjamRterus()
     {
-        $this->db->query('SELECT * FROM table_pinjamruang WHERE statusP_ruang="DITERUSKAN" tanggalP_ruang ASC');
+         $this->db->query('SELECT kodeP_ruang, namaP, tanggalP_ruang, statusP_ruang FROM table_pinjamruang WHERE statusP_ruang="DITERUSKAN" GROUP BY kodeP_ruang ORDER BY tanggalP_ruang ASC ');
         return $this->db->resultSet();
     }
 
@@ -134,6 +148,22 @@ class Model_StatusPinjam
         $this->db->query($query);
         return $this->db->resultSet();
     }
+
+    public function getAllKonfirmB($kodeP)
+    {
+        $this->db->query('SELECT pb.kodeP_barang, pb.tanggalP_barang, pb.kodeB, b.namaB, pb.jamP_barang, pb.statusP_barang  FROM table_pinjambarang AS pb NATURAL JOIN table_barang as b WHERE kodeP_barang = :kodeP AND statusP_barang="DITERUSKAN"');
+        $this->db->bind(':kodeP', $kodeP);
+        return $this->db->resultSet();
+    }
+
+    public function getAllkonfirmR($kodeP)
+    {
+        $this->db->query('SELECT pb.kodeP_ruang, pb.tanggalP_ruang, pb.kodeR, b.namaR, pb.jamP_ruang, pb.statusP_ruang  FROM table_pinjamruang AS pb NATURAL JOIN table_ruang as b WHERE kodeP_ruang = :kodeP AND statusP_ruang="DITERUSKAN"');
+        $this->db->bind(':kodeP', $kodeP);
+        return $this->db->resultSet();
+    }
+
+    
 
     public function ubahStatusR($data)
     {
