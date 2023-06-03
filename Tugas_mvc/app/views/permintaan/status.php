@@ -1,4 +1,22 @@
 <!-- verif.php -->
+<style>
+        body {
+            background: url('<?= BASEURL; ?> /img/Home.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+		table{
+			text-align: center;
+            
+		}
+        h3{
+            font-weight: bold;
+        }
+        label{
+            font-weight: bold;
+        }
+        
+</style>
+
 <div class="container mt-3">
     <div class="row mb-3">
         <div class="col-lg-6">
@@ -15,18 +33,18 @@
     <div class="row">
         <div class="col-lg-6">
             <form action="http://localhost/Tugas_mvc/public/permintaan/status" method="post">
-                <label for="option">Pilih:</label>
-                <select name="option" id="option">
+                <label for="option">Pilih Jenis Layanan :</label>
+                <select name="option" id="option" class="btn btn-light">
                     <option value="">-- Pilih --</option>
                     <option value="barang" <?= $data['selectedOption'] == 'barang' ? 'selected' : '' ?>>Barang</option>
                     <option value="ruang" <?= $data['selectedOption'] == 'ruang' ? 'selected' : '' ?>>Ruang</option>
                 </select>
-                <button type="submit">Tampilkan</button>
+                <button class="btn btn-primary" type="submit">Tampilkan</button>
             </form>
 
             <?php if ($data['selectedOption'] == 'barang') : ?>
                 <h3>Data Pinjam Barang</h3>
-                <table>
+                <table class = "table table-striped table-light">
                     <thead>
                         <tr>
                             <th>Kode Pinjam</th>
@@ -45,7 +63,7 @@
                                     <form action="http://localhost/Tugas_mvc/public/permintaan/status" method="post">
                                         <input type="hidden" name="option" value="barang">
                                         <input type="hidden" name="id" value="<?= $item['kodeP_barang'] ?>">
-                                        <button type="submit">Detail</button>
+                                        <button class="btn btn-success" type="submit">Detail</button>
                                     </form>
                                 </td>
                             </tr>
@@ -58,13 +76,12 @@
 
             <?php elseif ($data['selectedOption'] == 'ruang') : ?>
                 <h3>Data Pinjam Ruang</h3>
-                <table>
+                <table class = "table table-striped table-light">
                     <thead>
                         <tr>
                             <th>Kode Pinjam</th>
                             <th>Nama Peminjam</th>
                             <th>Tanggal Pinjam</th>
-                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -79,7 +96,7 @@
                                     <form action="http://localhost/Tugas_mvc/public/permintaan/status" method="post">
                                         <input type="hidden" name="option" value="ruang">
                                         <input type="hidden" name="id" value="<?= $item['kodeP_ruang'] ?>">
-                                        <button type="submit">Detail</button>
+                                        <button class="btn btn-success" type="submit">Detail</button>
                                     </form>
                                 </td>
                             </tr>
