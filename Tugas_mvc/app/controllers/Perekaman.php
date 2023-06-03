@@ -10,6 +10,14 @@ class Perekaman extends Controller
 		$this->view('perekaman/ruang', $data);
 		$this->view('templates/footer', $data);
 	}
+public function tabelRuang()
+	{
+		$data['judul'] = 'Perekaman Sarana dan Prasarana';
+		$data['ruang'] = $this->model('Model_PerekamanR')->getAllPerekaman();
+		$this->view('templates/header', $data);
+		$this->view('perekaman/tabelRuang', $data);
+		$this->view('templates/footer', $data);
+	}
 
 	public function barang()
 	{
@@ -20,6 +28,14 @@ class Perekaman extends Controller
 		$this->view('templates/footer', $data);
 	}
 
+	public function tabelBarang()
+	{
+		$data['judul'] = 'Perekaman Sarana dan Prasarana';
+		$data['barang'] = $this->model('Model_PerekamanB')->getAllPerekaman();
+		$this->view('templates/header', $data);
+		$this->view('perekaman/tabelBarang', $data);
+		$this->view('templates/footer', $data);
+	}
 	public function tambahR()
 	{
 		if ($this->model('Model_PerekamanR')->tambahDataR($_POST) > 0) {
