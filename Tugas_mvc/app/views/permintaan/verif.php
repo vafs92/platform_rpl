@@ -1,14 +1,8 @@
-<style>
-        body {
-            background: url('<?= BASEURL; ?> /img/Home.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-</style>
-
+<!-- verif.php -->
 <div class="container mt-3">
     <div class="row mb-3">
         <div class="col-lg-6">
-            <form action="<?= BASEURL; ?>/permintaan/cari" method="POST">
+            <form action="http://localhost/Tugas_mvc/public/permintaan/cari" method="POST">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Cari barang..." name="keyword" id="keyword" autocomplete="off">
                     <div class="input-group-append">
@@ -20,7 +14,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <form action="<?= BASEURL ?>/permintaan/verif" method="post">
+            <form action="http://localhost/Tugas_mvc/public/permintaan/verif" method="post">
                 <label for="option">Pilih:</label>
                 <select name="option" id="option">
                     <option value="">-- Pilih --</option>
@@ -38,7 +32,6 @@
                             <th>Kode Pinjam</th>
                             <th>Nama Peminjam</th>
                             <th>Tanggal Pinjam</th>
-                            <th>Jam Pinjam</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -46,17 +39,25 @@
                     <tbody>
                         <?php foreach ($data['items'] as $item) : ?>
                             <tr>
-                                <td><?= $item['kodeB'] ?></td>
+                                <td><?= $item['kodeP_barang'] ?></td>
                                 <td><?= $item['namaP'] ?></td>
                                 <td><?= $item['tanggalP_barang'] ?></td>
-                                <td><?= $item['jamP_barang'] ?></td>
                                 <td><?= $item['statusP_barang'] ?></td>
-                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVerif" data-id="<?= $item['kodeB'] ?>" data-type="barang">Detail</button>
-                                </td>                               
+                                <td>
+                                    <form action="http://localhost/Tugas_mvc/public/permintaan/verif" method="post">
+                                        <input type="hidden" name="option" value="barang">
+                                        <input type="hidden" name="id" value="<?= $item['kodeP_barang'] ?>">
+                                        <button type="submit">Detail</button>
+                                    </form>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php if (isset($data['items_barang']) && is_array($data['items_barang'])) : ?>
+                    <?php include 'verif_barang.php'; ?>
+                <?php endif; ?>
+
             <?php elseif ($data['selectedOption'] == 'ruang') : ?>
                 <h3>Data Pinjam Ruang</h3>
                 <table>
@@ -65,7 +66,6 @@
                             <th>Kode Pinjam</th>
                             <th>Nama Peminjam</th>
                             <th>Tanggal Pinjam</th>
-                            <th>Jam Pinjam</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -73,50 +73,25 @@
                     <tbody>
                         <?php foreach ($data['items'] as $item) : ?>
                             <tr>
-                                <td><?= $item['kodeR'] ?></td>
+                                <td><?= $item['kodeP_ruang'] ?></td>
                                 <td><?= $item['namaP'] ?></td>
                                 <td><?= $item['tanggalP_ruang'] ?></td>
-                                <td><?= $item['jamP_ruang'] ?></td>
                                 <td><?= $item['statusP_ruang'] ?></td>
-                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVerif" data-id="<?= $item['kodeB'] ?>" data-type="barang">Detail</button>
+                                <td>
+                                    <form action="http://localhost/Tugas_mvc/public/permintaan/verif" method="post">
+                                        <input type="hidden" name="option" value="ruang">
+                                        <input type="hidden" name="id" value="<?= $item['kodeP_ruang'] ?>">
+                                        <button type="submit">Detail</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php if (isset($data['items_ruang']) && is_array($data['items_ruang'])) : ?>
+                    <?php include 'verif_ruang.php'; ?>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>
-
-    <div class="modal fade" id="modalVerif" tabindex="-1" aria-labelledby="modalVerifLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalVerifLabel">Detail Permintaan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="detailData"></div>
-                <form action="<?= BASEURL ?>/permintaan/verifikasi" method="post">
-                    <div class="mb-3">
-                        <label for="verifikasi">Verifikasi:</label>
-                        <select name="verifikasi" id="verifikasi" class="form-select">
-                            <option value="">-- Pilih --</option>
-                            <option value="acc">Acc</option>
-                            <option value="tolak">Tolak</option>
-                            <option value="diteruskan">Diteruskan</option>
-                        </select>
-                    </div>
-                    <input type="hidden" name="kodePinjam" id="kodePinjam">
-                    <input type="hidden" name="jenis" id="jenis">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>
-
-
-
-
-
