@@ -1,7 +1,7 @@
 <div class="container">
-    <h3>Data Pinjam barang</h3>
+    <h3>Data Pinjam Barang</h3>
 
-    <table>
+    <table class = "table table-striped table-light">
         <thead>
             <tr>
                 <th>Kode Pinjam</th>
@@ -35,7 +35,7 @@
                             <input type="hidden" name="option" value="barang">
                             <input type="hidden" name="id" id="id" value="<?= $item['kodeP_barang'] ?>">
                             <input type="hidden" name="kode" id="kode" value="<?= $item['kodeB'] ?>">
-                            <button type="submit">SIMPAN</button>
+                            <button class="btn btn-success" type="submit">SIMPAN</button>
                         </td>
 
                     </tr>
