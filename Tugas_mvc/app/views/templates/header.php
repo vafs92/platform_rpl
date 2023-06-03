@@ -36,17 +36,29 @@
             <div class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="perekamanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perekaman Sarana Dan Prasarana</a>
               <ul class="dropdown-menu" aria-labelledby="perekamanDropdown">
-                <li><a class="dropdown-item" href="<?= BASEURL; ?>/perekaman/ruang">Ruang</a></li>
-                <li><a class="dropdown-item" href="<?= BASEURL; ?>/perekaman/barang">Barang</a></li>
+                <?php if ($_SESSION['role'] === 'BIRO' || $_SESSION['role'] === 'SEKRE') : ?>
+                  <li><a class="dropdown-item" href="<?= BASEURL; ?>/perekaman/ruang">Ruang</a></li>
+                  <li><a class="dropdown-item" href="<?= BASEURL; ?>/perekaman/barang">Barang</a></li>
+                  <?php endif; ?>
+                  <?php if($_SESSION['role'] === 'USER') :?> 
+                  <li><a class="dropdown-item" href="<?= BASEURL; ?>/perekaman/tabelRuang">Ruang</a></li>
+                  <li><a class="dropdown-item" href="<?= BASEURL; ?>/perekaman/tabelBarang">Barang</a></li>
+                  <?php endif; ?>
               </ul>
             </div>
             <div class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="permintaanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Peminjaman</a>
               <ul class="dropdown-menu" aria-labelledby="permintaanDropdown">
-                <li><a class="dropdown-item" href="<?= BASEURL; ?>/permintaan/status">Status Permintaan</a></li>
-                <li><a class="dropdown-item" href="<?= BASEURL; ?>/permintaan/tambah">Perekaman Permintaan</a></li>
-                <li><a class="dropdown-item" href="<?= BASEURL; ?>/permintaan/verif">Verifikasi</a></li>
-                <li><a class="dropdown-item" href="<?= BASEURL; ?>/permintaan/konfirmasi">Konfirmasi</a></li>
+                  <li><a class="dropdown-item" href="<?= BASEURL; ?>/permintaan/status">Status Permintaan</a></li>
+                  <?php if ($_SESSION['role'] === 'USER'):?>
+                  <li><a class="dropdown-item" href="<?= BASEURL; ?>/permintaan/tambah">Perekaman Permintaan</a></li>
+                  <?php endif;?>
+                  <?php if ($_SESSION['role'] === 'SEKRE'):?>
+                  <li><a class="dropdown-item" href="<?= BASEURL; ?>/permintaan/verif">Verifikasi</a></li>
+                  <?php endif;?>
+                  <?php if ($_SESSION['role'] === 'BIRO'):?>
+                  <li><a class="dropdown-item" href="<?= BASEURL; ?>/permintaan/konfirmasi">Konfirmasi</a></li>
+                  <?php endif;?>
               </ul>
             </div>
             <a class="nav-link active" aria-current="page" href="<?= BASEURL; ?>/home/logout">Logout</a>
