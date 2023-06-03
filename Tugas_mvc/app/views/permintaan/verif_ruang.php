@@ -34,7 +34,7 @@
                                 <input type="hidden" name="option" value="ruang">
                                 <input type="hidden" name="id" id="id" value="<?= $item['kodeP_ruang'] ?>">
                                 <input type="hidden" name="kode" id="kode" value="<?= $item['kodeR'] ?>">
-                                <button type="submit">SIMPAN</button>
+                                <button class="btn btn-success" type="submit">SIMPAN</button>
                             </td>
                         
                     </tr>
