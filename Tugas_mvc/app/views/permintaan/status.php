@@ -1,14 +1,8 @@
-<style>
-        body {
-            background: url('<?= BASEURL; ?> /img/Home.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-</style>
-
+<!-- verif.php -->
 <div class="container mt-3">
     <div class="row mb-3">
         <div class="col-lg-6">
-            <form action="<?= BASEURL; ?>/permintaan/cari" method="POST">
+            <form action="http://localhost/Tugas_mvc/public/permintaan/cari" method="POST">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Cari barang..." name="keyword" id="keyword" autocomplete="off">
                     <div class="input-group-append">
@@ -20,7 +14,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <form action="<?= BASEURL ?>/permintaan/status" method="post">
+            <form action="http://localhost/Tugas_mvc/public/permintaan/status" method="post">
                 <label for="option">Pilih:</label>
                 <select name="option" id="option">
                     <option value="">-- Pilih --</option>
@@ -38,22 +32,30 @@
                             <th>Kode Pinjam</th>
                             <th>Nama Peminjam</th>
                             <th>Tanggal Pinjam</th>
-                            <th>Jam Pinjam</th>
-                            <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($data['items'] as $item) : ?>
                             <tr>
-                                <td><?= $item['kodeB'] ?></td>
+                                <td><?= $item['kodeP_barang'] ?></td>
                                 <td><?= $item['namaP'] ?></td>
                                 <td><?= $item['tanggalP_barang'] ?></td>
-                                <td><?= $item['jamP_barang'] ?></td>
-                                <td><?= $item['statusP_barang'] ?></td>
+                                <td>
+                                    <form action="http://localhost/Tugas_mvc/public/permintaan/status" method="post">
+                                        <input type="hidden" name="option" value="barang">
+                                        <input type="hidden" name="id" value="<?= $item['kodeP_barang'] ?>">
+                                        <button type="submit">Detail</button>
+                                    </form>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php if (isset($data['items_barang']) && is_array($data['items_barang'])) : ?>
+                    <?php include 'status_barang.php'; ?>
+                <?php endif; ?>
+
             <?php elseif ($data['selectedOption'] == 'ruang') : ?>
                 <h3>Data Pinjam Ruang</h3>
                 <table>
@@ -62,22 +64,32 @@
                             <th>Kode Pinjam</th>
                             <th>Nama Peminjam</th>
                             <th>Tanggal Pinjam</th>
-                            <th>Jam Pinjam</th>
                             <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($data['items'] as $item) : ?>
                             <tr>
-                                <td><?= $item['kodeR'] ?></td>
+                                <td><?= $item['kodeP_ruang'] ?></td>
                                 <td><?= $item['namaP'] ?></td>
                                 <td><?= $item['tanggalP_ruang'] ?></td>
-                                <td><?= $item['jamP_ruang'] ?></td>
-                                <td><?= $item['statusP_ruang'] ?></td>
+                                
+                                <td>
+                                    <form action="http://localhost/Tugas_mvc/public/permintaan/status" method="post">
+                                        <input type="hidden" name="option" value="ruang">
+                                        <input type="hidden" name="id" value="<?= $item['kodeP_ruang'] ?>">
+                                        <button type="submit">Detail</button>
+                                    </form>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php if (isset($data['items_ruang']) && is_array($data['items_ruang'])) : ?>
+                    <?php include 'status_ruang.php'; ?>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>
+</div>
